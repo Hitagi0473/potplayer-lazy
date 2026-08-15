@@ -58,7 +58,6 @@
 2. 确认脚本目录就是 D:\Potplayer。
 3. 在任何系统修改前检查全部核心文件；缺少任意文件都会集中报告并终止。
 4. 关闭正在运行的 PotPlayerMini64.exe 和 madHcCtrl.exe，并确认它们已经退出。
-5. 在 Backup-Before-Restore\\yyyyMMdd-HHmmss\\ 中备份当前用户已有的配置。
 6. 按顺序静默注册 LAV Splitter、LAV Video、LAV Audio。
 7. 导入并验证 Config\\LAV.reg。
 8. 调用 madVR\\install.bat，随后验证 madVR x64 COM 注册指向本包中的 madVR64.ax；验证通过后再导入 Config\\madVR.reg。
@@ -101,7 +100,6 @@
 
 备份目录示例：
 
-    D:\Potplayer\Backup-Before-Restore\20260813-130706\
 
 注册表键不存在时会显示 SKIP；键存在但导出失败时会立即终止恢复，以避免在没有退路的情况下继续覆盖配置。
 
@@ -162,7 +160,6 @@ PotPlayer 的主要配置由旁边的 PotPlayerMini64.ini 提供。只要目录�
 
 运行后还可能出现以下本地文件或目录：
 
-    Backup-Before-Restore\\       # 恢复前注册表备份，不打进发布包
     Restore.log                    # 恢复日志，不打进发布包
 
 ## 自己重新打包
@@ -193,9 +190,9 @@ PotPlayer 的主要配置由旁边的 PotPlayerMini64.ini 提供。只要目录�
 打包脚本默认：
 
 - 源目录固定为 D:\Potplayer。
-- 排除 Backup-Before-Restore\\ 和 Restore.log。
-- 不把 Check-Package.ps1 放入发布包。
-- 保留 Restore.cmd、配置目录、组件目录、PotPlayer INI 和打包脚本本身。
+- 发布 ZIP 不包含仓库元数据、README、日志、备份和打包辅助脚本。
+- 运行时 ZIP 只包含 Restore.cmd 以及组件和配置目录。
+
 - 输出 ZIP 大小和 SHA-256，便于校验文件传输是否完整。
 
 打包完成后，把 D:\PotPlayer-Lazy-Pack.zip 复制到目标电脑，解压到 D:\，再按上面的“快速开始”运行 Restore.cmd。
@@ -212,3 +209,9 @@ PotPlayer 的主要配置由旁边的 PotPlayerMini64.ini 提供。只要目录�
 ## 许可证与第三方组件
 
 本仓库的脚本和配置仅代表个人使用方案。[PotPlayer](https://potplayer.tv/)、[LAV Filters](https://github.com/Nevcairiel/LAVFilters)、[madVR](https://www.videohelp.com/software/madVR)、[XySubFilter](https://github.com/pinterf/xy-VSFilter) 及其附带文件分别由各自作者或项目维护，版权和许可证归原作者所有。使用、分发或公开发布完整懒人包前，请自行确认相关组件的许可证、商标和再分发条款。
+
+### Release ZIP 内容
+
+运行时 Release 压缩包只包含 Restore.cmd、Config、LAVFilters、madVR、Potplayer 和 xyVSFilterSubFilter。
+压缩包不会包含 .git、.gitignore、README.md、打包脚本、Check-Package.ps1、Backup-Before-Restore 或 Restore.log。
+GitHub 仓库保留文档和打包辅助脚本；二进制 Release 压缩包只提供恢复所需的运行时文件。
